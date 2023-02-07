@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: 'guestbook-qa'
+spec:
+  destination:
+    name: 'in-cluster'
+    namespace: 'qa'
+  source:
+    path: 'charts/guestbook'
+    repoURL: 'https://github.com/akuity/argo-cd-learning-assets.git'
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+      - values-qa.yaml
+  project: 'default'
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

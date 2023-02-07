@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: 'guestbook-prod'
+spec:
+  destination:
+    name: 'in-cluster'
+    namespace: 'prod'
+  source:
+    path: 'charts/guestbook'
+    repoURL: 'https://github.com/akuity/argo-cd-learning-assets.git'
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+      - values-prod.yaml
+  project: 'default'
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

@@ -39,3 +39,4 @@ jobs:
           context: 'containers/${{ inputs.container }}'
           push: true
           tags: quay.io/akuity/argo-cd-learning-assets/${{ inputs.container }}:${{ inputs.tag }}
+          platforms: 'linux/amd64,linux/arm64'

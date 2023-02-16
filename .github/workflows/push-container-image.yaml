@@ -16,6 +16,10 @@ jobs:
   push-container-image:
     runs-on: ubuntu-latest
     steps:
+      - name: print inputs
+        run: |
+          echo "Pushing container image: quay.io/akuity/argo-cd-learning-assets/${{ inputs.container }}:${{ inputs.tag }}."
+
       - name: Checkout code
         uses: actions/checkout@v3
 

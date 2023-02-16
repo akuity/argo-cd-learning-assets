@@ -1,13 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: 'guestbook-qa'
+  name: 'leaderboard-qa'
 spec:
   destination:
     name: 'in-cluster'
     namespace: 'qa'
   source:
-    path: 'charts/guestbook'
+    path: 'charts/leaderboard'
     repoURL: 'https://github.com/akuity/argo-cd-learning-assets.git'
     targetRevision: HEAD
     helm:

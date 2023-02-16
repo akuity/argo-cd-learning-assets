@@ -33,6 +33,5 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: 'containers/${{ inputs.container }}'
-          file: ./Dockerfile
           push: true
           tags: quay.io/akuity/argo-cd-learning-assets/${{ inputs.container }}:${{ inputs.tag }}

@@ -15,5 +15,7 @@ spec:
       - values-qa.yaml
   project: 'default'
   syncPolicy:
+    automated:
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true

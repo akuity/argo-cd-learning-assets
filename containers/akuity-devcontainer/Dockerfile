@@ -38,7 +38,9 @@ RUN curl -Lo /usr/local/bin/kargo "https://github.com/akuity/kargo/releases/down
     && chmod +x /usr/local/bin/kargo
 
 # Run the things we need
-RUN apt update && apt install bash-completion
+RUN apt update && apt install bash-completion && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Add bash completion and such
 RUN echo 'source <(kubectl completion bash)' >> /etc/bash.bashrc

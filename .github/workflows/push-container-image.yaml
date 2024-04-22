@@ -7,8 +7,9 @@ on:
         default: 'leaderboard' 
         type: choice
         options:  # Folders under `containers/` that have a repo set up in Quay.
-        - leaderboard
+        - akuity-devcontainer
         - guestbook
+        - leaderboard
       tag:
         description: 'The tag to push for the container.'
         required: true 

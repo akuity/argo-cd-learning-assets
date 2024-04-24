@@ -14,6 +14,9 @@ on:
         description: 'The tag to push for the container.'
         required: true 
         type: string
+
+run-name: Publish ${{ inputs.container }}:${{ inputs.tag }}
+
 jobs:
   push-container-image:
     runs-on: ubuntu-latest

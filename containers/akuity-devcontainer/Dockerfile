@@ -37,6 +37,11 @@ ENV KARGO_VERSION=v0.5.2
 RUN curl -Lo /usr/local/bin/kargo "https://github.com/akuity/kargo/releases/download/${KARGO_VERSION}/kargo-linux-amd64" \
     && chmod +x /usr/local/bin/kargo
 
+# Install yq
+ENV YQ_VERSION=v4.43.1
+RUN curl -Lo /usr/local/bin/yq "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64" \
+    && chmod +x /usr/local/bin/yq
+
 # Run the things we need
 RUN apt update && apt install bash-completion && \
     apt-get clean && \
@@ -50,5 +55,6 @@ RUN echo 'source <(kustomize completion bash)' >> /etc/bash.bashrc
 RUN echo 'source <(kind completion bash)' >> /etc/bash.bashrc
 RUN echo 'source <(kargo completion bash)' >> /etc/bash.bashrc
 RUN echo 'source <(helm completion bash)' >> /etc/bash.bashrc
+RUN echo 'source <(yq shell-completion bash)' >> /etc/bash.bashrc
 RUN echo 'alias k="kubectl"' >> /etc/bash.bashrc
 RUN echo 'complete -F __start_kubectl k' >> /etc/bash.bashrc

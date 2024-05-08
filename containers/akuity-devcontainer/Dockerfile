@@ -35,6 +35,14 @@ RUN curl -Lo /usr/local/bin/kubectl "https://dl.k8s.io/release/${KUBECTL_VERSION
     && chmod +x /usr/local/bin/kubectl \
     && echo 'source <(kubectl completion bash)' >> /usr/share/bash-completion/completions/kubectl
 
+ENV KUBECTX_VERSION=v0.9.5
+RUN curl -Lo /tmp/kubectx.tar.gz "https://github.com/ahmetb/kubectx/releases/download/${KUBECTX_VERSION}/kubectx_${KUBECTX_VERSION}_linux_x86_64.tar.gz" \
+    && tar -xvf /tmp/kubectx.tar.gz -C /tmp \
+    && mv /tmp/kubectx /usr/local/bin/kubectx \
+    && curl -Lo /tmp/kubens.tar.gz "https://github.com/ahmetb/kubectx/releases/download/${KUBECTX_VERSION}/kubens_${KUBECTX_VERSION}_linux_x86_64.tar.gz" \
+    && tar -xvf /tmp/kubens.tar.gz -C /tmp \
+    && mv /tmp/kubens /usr/local/bin/kubens
+
 # https://github.com/kubernetes-sigs/kustomize/releases
 ENV KUSTOMIZE_VERSION=v5.4.1
 RUN curl -Lo /tmp/kustomize.tar.gz https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2F${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz \

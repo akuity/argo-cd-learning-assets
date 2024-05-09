@@ -10,30 +10,15 @@ on:
         - akuity-devcontainer
         - guestbook
         - leaderboard
-      tag:
-        description: 'The tag to push for the container.'
-        required: true 
-        type: string
 
-run-name: Publish ${{ inputs.container }}:${{ inputs.tag }}
+run-name: Build ${{ inputs.container }}:${{ inputs.tag }}
 
 jobs:
   push-container-image:
     runs-on: ubuntu-latest
     steps:
-      - name: print inputs
-        run: |
-          echo "Pushing container image: quay.io/akuity/argo-cd-learning-assets/${{ inputs.container }}:${{ inputs.tag }}."
-
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Login to Quay
-        uses: docker/login-action@v2
-        with:
-          registry: quay.io
-          username: ${{ secrets.QUAY_AKUITY_LEARNING_CI_USERNAME }}
-          password: ${{ secrets.QUAY_AKUITY_LEARNING_CI_PASSWORD }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -42,6 +27,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: 'containers/${{ inputs.container }}'
-          push: true
-          tags: quay.io/akuity/argo-cd-learning-assets/${{ inputs.container }}:${{ inputs.tag }}
+          push: false
+          tags: quay.io/akuity/argo-cd-learning-assets/${{ inputs.container }}:pr-${{ github.event.pull_request.number }}
           platforms: 'linux/amd64,linux/arm64'

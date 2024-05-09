@@ -40,8 +40,7 @@ RUN wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/${K3D_VERSION}/ins
 # This should be the same K8s version that kind creates.
 ENV KUBECTL_VERSION=v1.29.3
 RUN curl -Lo /usr/local/bin/kubectl "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" \
-    && chmod +x /usr/local/bin/kubectl \
-    && echo 'source <(kubectl completion bash)' >> /usr/share/bash-completion/completions/kubectl
+    && chmod +x /usr/local/bin/kubectl
 
 ENV KUBECTX_VERSION=v0.9.5
 RUN curl -Lo /tmp/kubectx.tar.gz "https://github.com/ahmetb/kubectx/releases/download/${KUBECTX_VERSION}/kubectx_${KUBECTX_VERSION}_linux_x86_64.tar.gz" \
@@ -80,4 +79,5 @@ RUN curl -Lo /usr/local/bin/yq "https://github.com/mikefarah/yq/releases/downloa
 # Add aliases and such
 RUN echo 'source /etc/profile.d/bash_completion.sh' >> /etc/bash.bashrc \
     && echo 'alias k="kubectl"' >> /etc/bash.bashrc \
+    && echo 'source <(kubectl completion bash)' >> /etc/bash.bashrc \
     && echo 'complete -F __start_kubectl k' >> /etc/bash.bashrc

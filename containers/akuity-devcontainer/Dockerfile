@@ -1,6 +1,11 @@
 # See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.245.2/containers/ubuntu/.devcontainer/base.Dockerfile
 FROM mcr.microsoft.com/vscode/devcontainers/base:0-ubuntu-22.04
 
+# Run the things we need
+RUN apt update && apt install bash-completion && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 # Select desired version for each tool
 ENV ARGOCD_VERSION=v2.10.9
 RUN curl -sSL -o /usr/local/bin/argocd "https://github.com/argoproj/argo-cd/releases/download/${ARGOCD_VERSION}/argocd-linux-amd64" \
@@ -28,6 +33,9 @@ ENV KIND_VERSION=v0.22.0
 RUN curl -Lo /usr/local/bin/kind https://kind.sigs.k8s.io/dl/${KIND_VERSION}/kind-linux-amd64 \
     && chmod +x /usr/local/bin/kind \
     && echo 'source <(kind completion bash)' >> /usr/share/bash-completion/completions/kind
+
+ENV K3D_VERSION=v5.6.3
+RUN wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/${K3D_VERSION}/install.sh | bash
 
 # This should be the same K8s version that kind creates.
 ENV KUBECTL_VERSION=v1.29.3
@@ -68,11 +76,6 @@ ENV YQ_VERSION=v4.43.1
 RUN curl -Lo /usr/local/bin/yq "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64" \
     && chmod +x /usr/local/bin/yq \
     && echo 'source <(yq shell-completion bash)' >> /usr/share/bash-completion/completions/yq
-
-# Run the things we need
-RUN apt update && apt install bash-completion && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Add aliases and such
 RUN echo 'source /etc/profile.d/bash_completion.sh' >> /etc/bash.bashrc \

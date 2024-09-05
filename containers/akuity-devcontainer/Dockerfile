@@ -65,7 +65,7 @@ RUN curl -LO "https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz" \
     && rm -rf "helm-v${HELM_VERSION}-linux-amd64.tar.gz" linux-amd64 \
     && echo 'source <(helm completion bash)' >> /usr/share/bash-completion/completions/helm
 
-ENV KARGO_VERSION=v0.6.0
+ENV KARGO_VERSION=v0.8.7
 RUN curl -Lo /usr/local/bin/kargo "https://github.com/akuity/kargo/releases/download/${KARGO_VERSION}/kargo-linux-amd64" \
     && chmod +x /usr/local/bin/kargo \
     && echo 'source <(kargo completion bash)' >> /usr/share/bash-completion/completions/kargo

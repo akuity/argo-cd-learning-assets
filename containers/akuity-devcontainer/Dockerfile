@@ -7,7 +7,7 @@ RUN apt update && apt install bash-completion && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Select desired version for each tool
-ENV ARGOCD_VERSION=v2.14.10
+ENV ARGOCD_VERSION=v3.4.3
 RUN curl -sSL -o /usr/local/bin/argocd "https://github.com/argoproj/argo-cd/releases/download/${ARGOCD_VERSION}/argocd-linux-amd64" \
     && chmod +x /usr/local/bin/argocd \
     && echo 'source <(argocd completion bash)' >> /usr/share/bash-completion/completions/argocd
@@ -24,12 +24,12 @@ RUN curl -sSL -o /usr/local/bin/kubectl-argo-rollouts "https://github.com/argopr
     && chmod +x /usr/local/bin/kubectl-argo-rollouts \
     && echo 'source <(kubectl-argo-rollouts completion bash)' >> /usr/share/bash-completion/completions/kubectl-argo-rollouts
 
-ENV AKUITY_VERSION=v0.21.5
+ENV AKUITY_VERSION=v0.30.0
 RUN curl -sSL -o /usr/local/bin/akuity "https://dl.akuity.io/akuity-cli/${AKUITY_VERSION}/linux/amd64/akuity" \
     && chmod +x /usr/local/bin/akuity \
     && echo 'source <(akuity completion bash)' >> /usr/share/bash-completion/completions/akuity
 
-ENV KIND_VERSION=v0.27.0
+ENV KIND_VERSION=v0.31.0
 RUN curl -Lo /usr/local/bin/kind https://kind.sigs.k8s.io/dl/${KIND_VERSION}/kind-linux-amd64 \
     && chmod +x /usr/local/bin/kind \
     && echo 'source <(kind completion bash)' >> /usr/share/bash-completion/completions/kind
@@ -38,7 +38,7 @@ ENV K3D_VERSION=v5.8.3
 RUN wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/${K3D_VERSION}/install.sh | bash
 
 # This should be the same K8s version that kind creates.
-ENV KUBECTL_VERSION=v1.32.3
+ENV KUBECTL_VERSION=v1.36.1
 RUN curl -Lo /usr/local/bin/kubectl "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" \
     && chmod +x /usr/local/bin/kubectl
 
@@ -65,7 +65,7 @@ RUN curl -LO "https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz" \
     && rm -rf "helm-v${HELM_VERSION}-linux-amd64.tar.gz" linux-amd64 \
     && echo 'source <(helm completion bash)' >> /usr/share/bash-completion/completions/helm
 
-ENV KARGO_VERSION=v1.4.1
+ENV KARGO_VERSION=v1.10.4
 RUN curl -Lo /usr/local/bin/kargo "https://github.com/akuity/kargo/releases/download/${KARGO_VERSION}/kargo-linux-amd64" \
     && chmod +x /usr/local/bin/kargo \
     && echo 'source <(kargo completion bash)' >> /usr/share/bash-completion/completions/kargo
